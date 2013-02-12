@@ -2,6 +2,7 @@ var app = {
 
     findByName: function() {
         console.log('findByName');
+        this.showAlert('message', 'title');
         this.store.findByName($('.search-key').val(), function(employees) {
             var l = employees.length;
             var e;
