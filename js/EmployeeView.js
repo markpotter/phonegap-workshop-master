@@ -4,9 +4,13 @@ var EmployeeView = function(employee){
 
     //LOCATION API
     this.el.on('click', '.add-location-btn', this.addLocation);
+    //CONTACTS API
+    this.el.on('click', '.add-contact-btn', this.addToContacts);
   };
 
-  //LOCATION API
+  /*
+   * LOCATION API
+   */
   this.addLocation = function(event) {
     event.preventDefault();
     console.log('addLocation');
@@ -15,11 +19,33 @@ var EmployeeView = function(employee){
             $('.location', this.el).html(position.coords.latitude + ',' + position.coords.longitude);
         },
         function(error) {
-            alert('New - Error getting location '+error.code);
+            app.showAlert('Error getting location: code - '+error, 'Error');
         });
     return false;
   };
 
+  /*
+   * CONTACT API
+   */
+  this.addToContacts = function(event) {
+event.preventDefault();
+    if (!navigator.contacts) {
+        app.showAlert('Contacts API not supported', 'Error');
+        return;
+    }
+    var contact = navigator.contacts.create();
+    contact.name = {givenName: employee.firstName, familyName: employee.lastName};
+    var phoneNumbers = [];
+    phoneNumbers[0] = new ContactField('work', employee.officePhone, false);
+    phoneNumbers[1] = new ContactField('mobile', employee.cellPhone, true); // preferred number
+    contact.phoneNumbers = phoneNumbers;
+    contact.save();
+    return false;
+  };
+
+  /*
+   * Boiler plate for rendering
+   */
   this.render = function(){
     this.el.html(EmployeeView.template(employee));
     return this;

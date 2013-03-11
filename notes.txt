@@ -1,3 +1,9 @@
+## LOCATION API (Step 1)
+#################################################
+
+Works on the desktop in Chrome, but not in Safari
+PhoneGap wraps it and makes it work on both iOS and Android
+
 # sample geo location for JSMB
 40.760779 -111.891047
 
@@ -5,3 +11,7 @@
 > telnet localhost <emulator port> (exm. 5556)
 geo fix [lat long]
 
+## CONTACTS API (Step 2)
+#################################################
+
+Only works on a running device, will NOT work on a desktop
