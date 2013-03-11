@@ -1,0 +1,7 @@
+# sample geo location for JSMB
+40.760779 -111.891047
+
+# how to connect to the console and set the geo location for the emulator
+> telnet localhost <emulator port> (exm. 5556)
+geo fix [lat long]
+
