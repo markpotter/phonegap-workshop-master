@@ -1,3 +1,8 @@
+#GEO LOCATION
+
+Works on the desktop in Chrome, but not in Safari
+PhoneGap wraps it and makes it work on both iOS and Android
+
 # sample geo location for JSMB
 40.760779 -111.891047
 
