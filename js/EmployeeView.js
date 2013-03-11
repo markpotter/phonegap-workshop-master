@@ -28,7 +28,7 @@ var EmployeeView = function(employee){
    * CONTACT API
    */
   this.addToContacts = function(event) {
-event.preventDefault();
+    event.preventDefault();
     if (!navigator.contacts) {
         app.showAlert('Contacts API not supported', 'Error');
         return;
