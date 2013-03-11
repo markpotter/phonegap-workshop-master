@@ -1,27 +1,48 @@
 var app = {
 
-    findByName: function() {
-        console.log('findByName');
-        this.showAlert('message', 'title');
-        this.store.findByName($('.search-key').val(), function(employees) {
-            var l = employees.length;
-            var e;
-            $('.employee-list').empty();
-            for (var i=0; i<l; i++) {
-                e = employees[i];
-                $('.employee-list').append('<li><a href="#employees/' + e.id + '">' + e.firstName + ' ' + e.lastName + '</a></li>');
-            }
-        });
-    },
-
     initialize: function() {
         var self = this;
-        this.store = new MemoryStore(function() {
-            self.showAlert('Store initialize', 'Info');
-        });
+        this.detailsURL = /^#employees\/(\d{1,})/;
+
+        this.store = new MemoryStore(function(){
+            self.route();
+        }, _.bind(this.initFailed, this));
+
+        this.registerEvents();
         //this.store = new WebSqlStore();
         //this.store = new LocalStorageStore();
-        $('.search-key').on('keyup', $.proxy(this.findByName, this));
+    },
+
+    registerEvents: function(){
+        var self = this;
+        //Check browser for touch event support
+        if (document.documentElement.hasOwnProperty('ontouchstart')){
+            // ... if yes: register touch event listener to change the 'selected' state of the item
+            $('body').on('touchstart', 'a', function(event){
+                $(event.target).addClass('tappable-active');
+            });
+        } else {
+            // ... if not: register mouse events instead
+            $('body').on('mouseup', 'a', function(event){
+                $(event.target).addClass('tappable-active');
+            });
+        }
+
+        $(window).on('hashchange', $.proxy(this.route, this));
+    },
+
+    route: function(){
+        var hash = window.location.hash;
+        if (!hash) {
+            $('body').html(new HomeView(this.store).render().el);
+            return;
+        }
+        var match = hash.match(app.detailsURL);
+        if (match) {
+            this.store.findById(Number(match[1]), function(employee) {
+                $('body').html(new EmployeeView(employee).render().el);
+            });
+        }
     },
 
     showAlert: function( message, title) {
@@ -30,8 +51,15 @@ var app = {
         } else {
             alert(title ? (title + ': '+ message): message);
         }
-    }
+    },
 
+    initFailed: function () {
+        this.showAlert('Storage initialization failed', 'Initization message');
+    },
+
+    initSucceeded: function () {
+        this.showAlert('Storage initialized successfully', 'Initization message');
+    }
 };
 
 app.initialize();

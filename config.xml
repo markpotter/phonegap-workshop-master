@@ -25,4 +25,6 @@
     
     <!-- This doesn't seem to make a difference. -->
     <preference name="fullscreen" value="false" />
+
+    <content src="http://local.familysearch.org/~mpotter/dev/PGExamples/assets/www/index.html" />
 </widget>
