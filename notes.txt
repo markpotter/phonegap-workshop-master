@@ -15,3 +15,9 @@ geo fix [lat long]
 #################################################
 
 Only works on a running device, will NOT work on a desktop
+
+
+## CAMERA API (Step 3)
+#################################################
+
+Only works on a running device, will NOT work on a desktop
