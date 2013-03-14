@@ -11,7 +11,7 @@
         A simple employee directory application
     </description>
  
-    <author href="http://www.bluenakoo.com" email="noumenonsoftware@gmail.com">
+    <author href="http://www.test.com" email="noumenonsoftware@gmail.com">
         Mark Potter
     </author>
  
@@ -26,5 +26,5 @@
     <!-- This doesn't seem to make a difference. -->
     <preference name="fullscreen" value="false" />
 
-    <content src="http://local.familysearch.org/~mpotter/dev/PGExamples/assets/www/index.html" />
+    <content src="/index.html" />
 </widget>
